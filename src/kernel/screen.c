@@ -7,11 +7,10 @@
 static int cursor_x = 0;
 static int cursor_y = 0;
 
-// Fungsi untuk menampilkan karakter di posisi tertentu
 static void put_char(char c, int x, int y) {
     volatile char* video = (volatile char*)VIDEO_MEMORY;
     video[2 * (y * WIDTH + x)] = c;
-    video[2 * (y * WIDTH + x) + 1] = 0x0F;
+    video[2 * (y * WIDTH + x) + 1] = 0x0F; // White on black
 }
 
 void clear_screen() {
@@ -39,11 +38,9 @@ void print(const char* str) {
             cursor_y++;
         }
         
-        // Scroll screen jika perlu
         if (cursor_y >= HEIGHT) {
+            // Scroll up one line
             volatile char* video = (volatile char*)VIDEO_MEMORY;
-            
-            // Geser semua baris ke atas
             for (int y = 1; y < HEIGHT; y++) {
                 for (int x = 0; x < WIDTH; x++) {
                     video[2 * ((y-1) * WIDTH + x)] = video[2 * (y * WIDTH + x)];
@@ -51,7 +48,7 @@ void print(const char* str) {
                 }
             }
             
-            // Bersihkan baris terakhir
+            // Clear last line
             for (int x = 0; x < WIDTH; x++) {
                 put_char(' ', x, HEIGHT - 1);
             }
@@ -63,14 +60,13 @@ void print(const char* str) {
     }
 }
 
-// Fungsi baru untuk menampilkan angka hex
 void print_hex(unsigned int num) {
     char hex_chars[] = "0123456789ABCDEF";
     
-    // Tampilkan prefix "0x"
+    // Print "0x" prefix
     print("0x");
     
-    // Tampilkan setiap digit hex (8 digit untuk 32-bit)
+    // Print each hex digit (8 digits for 32-bit)
     for (int i = 7; i >= 0; i--) {
         int digit = (num >> (i * 4)) & 0xF;
         put_char(hex_chars[digit], cursor_x, cursor_y);
