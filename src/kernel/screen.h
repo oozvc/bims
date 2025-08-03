@@ -3,5 +3,6 @@
 
 void clear_screen();
 void print(const char* str);
+void print_hex(unsigned int num);  // Tambahkan deklarasi ini
 
 #endif
