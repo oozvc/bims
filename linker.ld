@@ -3,8 +3,12 @@ ENTRY(_start)
 SECTIONS {
     . = 1M; /* Kernel loaded at 1MB */
 
-    .text : ALIGN(4K) {
+    /* Multiboot header must be near the beginning */
+    .multiboot_header : {
         *(.multiboot_header)
+    }
+
+    .text : ALIGN(4K) {
         *(.text)
     }
 
@@ -19,6 +23,7 @@ SECTIONS {
     .bss : ALIGN(4K) {
         *(COMMON)
         *(.bss)
+        *(.stack)
     }
 
     /DISCARD/ : {
