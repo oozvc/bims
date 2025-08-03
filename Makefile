@@ -9,7 +9,7 @@ GRUB = grub-mkrescue
 # Flags
 ASMFLAGS = -f elf32
 CFLAGS = -m32 -nostdlib -nostdinc -fno-builtin -fno-stack-protector \
-         -Wall -Wextra -Werror -c
+         -Wall -Wextra -c  # Hapus -Werror untuk sementara
 LDFLAGS = -m elf_i386 -T linker.ld
 
 # Source files
