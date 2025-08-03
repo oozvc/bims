@@ -9,15 +9,15 @@ GRUB = grub-mkrescue
 # Flags
 ASMFLAGS = -f elf32
 CFLAGS = -m32 -nostdlib -nostdinc -fno-builtin -fno-stack-protector \
-         -Wall -Wextra -c  # Hapus -Werror untuk sementara
+         -Wall -Wextra -c
 LDFLAGS = -m elf_i386 -T linker.ld
 
 # Source files
-BOOT_SRC = src/boot/multiboot_header.asm src/boot/boot.asm
+BOOT_SRC = src/boot/boot.asm
 KERNEL_SRC = src/kernel/kernel.c src/kernel/screen.c
 
 # Output files
-OBJ = $(BOOT_SRC:.asm=.o) $(KERNEL_SRC:.c=.o)
+OBJ = src/boot/boot.o src/kernel/kernel.o src/kernel/screen.o
 KERNEL = kernel.bin
 ISO = kernel.iso
 
@@ -34,10 +34,10 @@ $(ISO): $(KERNEL)
 $(KERNEL): $(OBJ)
 	$(LD) $(LDFLAGS) -o $@ $^
 
-%.o: %.asm
+src/boot/boot.o: src/boot/boot.asm
 	$(ASM) $(ASMFLAGS) -o $@ $<
 
-%.o: %.c
+src/kernel/%.o: src/kernel/%.c
 	$(CC) $(CFLAGS) -o $@ $<
 
 clean:
