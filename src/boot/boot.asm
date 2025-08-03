@@ -9,7 +9,7 @@ _start:
     mov esp, stack_top
     
     ; Pass multiboot info to kernel
-    push ebx ; Multiboot info structure
+    push ebx ; Multiboot info structure pointer
     push eax ; Multiboot magic number
     
     ; Call kernel main
