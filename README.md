@@ -1,4 +1,7 @@
-# ziolekernel
+# bims 
+
+bims is a kernel 
+
 a simple kernel by bhimantara & zeno team 
 
     git clone https://github.com/oozvc/ziolekernel
@@ -7,3 +10,5 @@ still eror now ver 0.6 beta
 mkfl (make file)
 ping (ping like in linux)
 and other
+
+prj ARJ10348JUNS
