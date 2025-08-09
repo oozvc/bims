@@ -2,7 +2,7 @@
 
 bims is a kernel 
 
-a simple kernel by bhimantara & zeno team 
+a simple kernel by ziole & zeno team 
 
     git clone https://github.com/oozvc/ziolekernel
     cd ziolekernel
